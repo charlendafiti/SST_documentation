@@ -1,4 +1,4 @@
-fetch('./getTasks/').
+fetch('./tasks/get/').
     then( data => {
         data.json().then( res => {
             res.forEach(task => {
