@@ -1,7 +1,15 @@
+const urlSearchParams = new URLSearchParams(window.location.search);
+const params = Object.fromEntries(urlSearchParams.entries());
+
+
 fetch('./tasks/').
     then( data => {
         data.json().then( res => {
-            res.forEach(task => {
+            res
+            .filter( task => {
+                return params.id ? task.id == params.id : true;
+            })
+            .forEach(task => {
                 let currentTask = document.createElement('div');
                 let {id, title, description, dev_journey, SEO_principles, best_practices} = task;
 
