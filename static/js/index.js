@@ -1,6 +1,9 @@
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 
+function goto(id){
+    document.location = `./?id=${id}`;
+}
 
 fetch('./tasks/').
     then( data => {
@@ -17,7 +20,7 @@ fetch('./tasks/').
 
                 let taskHtml = `
                     <div class="task-header">
-                        <span class="task-id">${id}</span>
+                        <span class="task-id" onClick="goto('${id}')">${id}</span>
                         <h2 class="task-title">${title}</h2>
                     </div>
                     <div class="task-body">
