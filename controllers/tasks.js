@@ -1,16 +1,10 @@
 const fs = require('fs');
 
 function TaskController() {
-    // constructor() {
-    //     this.tasks = this.loadTasks();
-    // }
 
     this.getTasks = function(req, res){
-        //this.tasks;
-        //console.log(this);
         res.send(this.tasks);
-    }
-    
+    }    
 
     this.updateTask = function(req, res){
         let currentTaskIdx;

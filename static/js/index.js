@@ -16,6 +16,7 @@ function OnInput() {
 
 function onFieldChange(changed){
     let body = `{"payload": {"id": "${params.id}","${changed.target.id}": "${changed.target.value}"}}`;
+
     fetch('./tasks/',
         {
             method: 'POST', 
