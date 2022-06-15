@@ -9,7 +9,8 @@ fetch('./tasks/').
 
                 let taskHtml = `
                     <div class="task-header">
-                        <h2 class="task-title">${id} - ${title}</h2>
+                        <span class="task-id">${id}</span>
+                        <h2 class="task-title">${title}</h2>
                     </div>
                     <div class="task-body">
                         <h3>Description</h3><div class="task-description">${description||""}</div>
