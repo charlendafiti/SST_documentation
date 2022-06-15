@@ -1,0 +1,8 @@
+services:
+  dev-env:
+    build: .
+    ports:
+      - "3021:3021"
+    volumes:
+      - ${PWD}:/app
+    entrypoint: "nodemon -x yarn && node index.js"
