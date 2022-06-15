@@ -5,6 +5,10 @@ function goto(id){
     document.location = `./?id=${id}`;
 }
 
+function goRoot() {
+    document.location = './';
+}
+
 fetch('./tasks/').
     then( data => {
         data.json().then( res => {
@@ -18,8 +22,11 @@ fetch('./tasks/').
 
                 currentTask.className = "task";                
 
+                let backButtonHtml = `<button class="back-button" onClick="goRoot()">Voltar</button>`
                 let taskHtml = `
+                    
                     <div class="task-header">
+                        ${params.id ? backButtonHtml : ''}
                         <span class="task-id" onClick="goto('${id}')">${id}</span>
                         <h2 class="task-title">${title}</h2>
                     </div>

@@ -4,6 +4,7 @@
     --body-background: #FDFDFD; 
     --title-color: #212121;
     --task-body-title: #495264; 
+    --back-button-bg: #495264; 
     --border-color: #DEE7F2; 
     --text-color: #242424; 
     --task-bg: #f5f5f5;  
@@ -55,6 +56,25 @@ body {
     border-radius: 5px;
     margin-bottom: 4px;
     cursor: pointer;
+}
+
+.back-button {
+    display: block;
+    background-color: var(--back-button-bg);
+    color: white;
+    border: none;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: .875rem;
+    float: right;
+}
+
+.back-button:hover {
+    transition: background-color .2s linear;
+    cursor: pointer;
+    background-color: #212121;
 }
 
 .task-header .task-title {
