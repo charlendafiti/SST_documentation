@@ -4,9 +4,13 @@ const taskRoutes = require('./routes/tasks');
 
 const app = express();
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: true}))
+
 const port = 3021;
 
 app.use(express.static('./static/'));
+//app.use(express.json());
 
 app.use('/tasks', taskRoutes);
 
