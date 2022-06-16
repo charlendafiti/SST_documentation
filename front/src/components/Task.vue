@@ -1,19 +1,29 @@
+<script setup>
+  import { RouterLink } from 'vue-router';
+</script>
+
 <template>
   <div class="task">
     <div class="task-header">
+
+    <router-link :to="{path: '/'}">
       <button 
         v-if="showBackButton" 
         class="back-button"
       > Voltar </button>
+    </router-link>
       
-      <span class="task-id">{{task.id}}</span>
+      <router-link :to="{path: `/task/${task.id}`}">
+        <span class="task-id">{{task.id}}</span>
+      </router-link>
+      
       <h2 class="task-title">{{task.title}}</h2>
     </div>
     <div class="task-body">
-        <task-description-item title="Description" :text="task.description" />
-        <task-description-item title="Dev Journey" :text="task.dev_journey" />
-        <task-description-item title="SEO principles" :text="task.SEO_principles" />
-        <task-description-item title="Best practices" :text="task.best_practices" />
+        <task-description-item title="Description" :text="task.description || ''" />
+        <task-description-item title="Dev Journey" :text="task.dev_journey || ''" />
+        <task-description-item title="SEO principles" :text="task.SEO_principles || ''" />
+        <task-description-item title="Best practices" :text="task.best_practices || ''" />
     </div>
   </div>  
 </template>

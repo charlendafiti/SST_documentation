@@ -5,7 +5,12 @@ function TaskController() {
     this.getTasks = function(req, res){
         res.header("Access-Control-Allow-Origin", "*");
         res.send(this.tasks);
-    }    
+    }
+    
+    this.getTask = function(req, res) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.send(this.tasks.filter(task => task.id == req.params.id));
+    }
 
     this.updateTask = function(req, res){
         let currentTaskIdx;
