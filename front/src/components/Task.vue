@@ -1,14 +1,15 @@
 <template>
   <div class="task">
     <div class="task-header">
-      <button class="back-button">Voltar</button>
-      <h2 class="task-title">SST-20 [Dafiti] - Remoção de H1s extras</h2>
+      <h2 class="task-title">
+        {{task.title}}
+      </h2>
     </div>
     <div class="task-body">
-        <task-description-item />
-        <task-description-item />
-        <task-description-item />
-        <task-description-item />
+        <task-description-item title="Description" :text=task.description />
+        <task-description-item title="Dev Journey" :text=task.dev_journey />
+        <task-description-item title="SEO principles" :text=task.SEO_principles />
+        <task-description-item title="Best practices" :text=task.best_practices />
     </div>
   </div>  
 </template>
@@ -16,6 +17,13 @@
 <script>
 import TaskDescriptionItem from '../components/TaskDescriptionItem.vue'
 export default {
+  props: {
+    task: {
+      required: true,
+      type: Object
+    }
+  },
+
   components: {
     TaskDescriptionItem
   },
