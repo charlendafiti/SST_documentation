@@ -1,15 +1,19 @@
 <template>
   <div class="task">
     <div class="task-header">
-      <h2 class="task-title">
-        {{task.title}}
-      </h2>
+      <button 
+        v-if="showBackButton" 
+        class="back-button"
+      > Voltar </button>
+      
+      <span class="task-id">{{task.id}}</span>
+      <h2 class="task-title">{{task.title}}</h2>
     </div>
     <div class="task-body">
-        <task-description-item title="Description" :text=task.description />
-        <task-description-item title="Dev Journey" :text=task.dev_journey />
-        <task-description-item title="SEO principles" :text=task.SEO_principles />
-        <task-description-item title="Best practices" :text=task.best_practices />
+        <task-description-item title="Description" :text="task.description" />
+        <task-description-item title="Dev Journey" :text="task.dev_journey" />
+        <task-description-item title="SEO principles" :text="task.SEO_principles" />
+        <task-description-item title="Best practices" :text="task.best_practices" />
     </div>
   </div>  
 </template>
@@ -18,6 +22,12 @@
 import TaskDescriptionItem from '../components/TaskDescriptionItem.vue'
 export default {
   props: {
+    showBackButton: {
+      required: false,
+      type: Boolean,
+      default: false,
+    },
+
     task: {
       required: true,
       type: Object
@@ -27,10 +37,6 @@ export default {
   components: {
     TaskDescriptionItem
   },
-
-  data: _ => ({
-
-  }),
 }
 </script>
 
@@ -44,14 +50,6 @@ textarea {
     border:none;
     outline: none;
     background: none;
-}
-
-.main-title {
-    font-size: 2rem;
-    color: var(--title-color); 
-    display: block;
-    margin-bottom: 1rem;
-    font-weight: 700;
 }
 
 .task {

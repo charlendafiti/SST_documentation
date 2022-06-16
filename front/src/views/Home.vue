@@ -1,5 +1,9 @@
 <template>
-    <task v-for="task in tasks" :key="task.id" :task=task />
+    <header>
+    <h1 class="main-title"> Tarefas de Q1 e Q3</h1>
+  </header>
+
+    <task v-for="task in tasks" :key="task.id" :task="task" />
 </template>
 
 <script>
@@ -22,3 +26,14 @@ export default {
 
 }
 </script>
+
+<style scoped>
+.main-title {
+    font-size: 2rem;
+    color: var(--title-color); 
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+</style>   
