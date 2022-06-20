@@ -3,15 +3,16 @@
         <h1 class="main-title"> Tarefas de Q1 e Q3</h1>
     </header>
     <div class="input-group">
-        <label for="search">Informe o ID da task que deseja: </label>
+        <label for="search">Informe o ID da task: </label>
         <input 
-            type="search" 
+            type="text" 
             maxlength="20" 
-            placeholder="Exemplo: SST-20" 
+            placeholder="Informe pelo menos 3 caracteres para buscar" 
             @input="search"
             v-model="query"
             
         />
+        <small v-if="isLoading"> Loading...</small>
         <button 
             @click="clearSearch"
             v-if="!!query"
@@ -36,12 +37,14 @@ export default {
     },
 
     data: _ => ({
+        isLoading: false,
         query: null,
-        tasks: [],
+        tasks: [], 
+        timeout: null,
     }),
 
     methods: {
-        init() {
+        init() { 
             this.loadJson();
         },
 
@@ -51,19 +54,38 @@ export default {
         },
 
         search() {
-            _.debounce(_ => {
-                fetch('http://localhost:3021/tasks')
-                .then(readableStream => readableStream.json())
-                .then(tasks => {
-                    this.tasks = tasks.filter(task => task.id.includes(this.query))
-                });
-            }, 1000)();
+            
+            clearTimeout(this.timeout); 
+
+            this.timeout = setTimeout(() => {
+                console.log(this.query)
+                if(this.query.length >= 3) {
+                    this.fetchJson().then(tasks => {
+                        this.tasks = tasks.filter(task => {
+                            return (
+                                task.id.includes(this.query.toUpperCase()) || 
+                                task.title.includes(this.query)
+                            ); 
+                        });
+                        this.isLoading = false; 
+                    });
+                } else {
+                    this.loadJson();
+                }
+            }, 1000);
+        },
+
+        fetchJson() {
+            this.isLoading = true;
+             return fetch('http://localhost:3021/tasks')
+            .then(readableStream => readableStream.json());  
         },
 
         loadJson() {
-            fetch('http://localhost:3021/tasks')
-            .then(readableStream => readableStream.json())
-            .then(tasks => this.tasks = tasks);
+            this.fetchJson().then(tasks => { 
+                this.tasks = tasks;
+                this.isLoading = false;
+            });
         }
     }
 }
@@ -81,8 +103,10 @@ export default {
 .input-group {
     display: flex; 
     flex-direction: column;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
+    margin-bottom: 2rem;
     position: relative;
+
 
     button {
         width: 25px;
@@ -98,13 +122,20 @@ export default {
         top: 50%;
         cursor: pointer;
     }
+     
+    small {
+        color: #666;
+        position: absolute;
+        bottom: -1.2rem
+    }
 }
 
 .input-group label {
-    font-weight: 500;
+    font-weight: 600;
+    font-size: .875rem;
 }
 
-input[type="search"] {
+input[type="text"] {
     background-color: white; 
     font-size: .875rem;
     border: none;
