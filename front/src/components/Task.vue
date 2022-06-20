@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="task">
+  <div class="task" v-if="task.id">
     <div class="task-header">
 
     <router-link :to="{path: '/'}">
@@ -20,10 +20,37 @@
       <h2 class="task-title">{{task.title}}</h2>
     </div>
     <div class="task-body">
-        <task-description-item title="Description" :text="task.description || ''" />
-        <task-description-item title="Dev Journey" :text="task.dev_journey || ''" />
-        <task-description-item title="SEO principles" :text="task.SEO_principles || ''" />
-        <task-description-item title="Best practices" :text="task.best_practices || ''" />
+        <task-description-item 
+          title="Description" 
+          field_id="description"
+          :task_id="task.id"
+          :text="task.description || ''" 
+          :editable="editable"
+        />
+        
+        <task-description-item 
+          title="Dev Journey"
+          field_id="dev_journey" 
+          :task_id="task.id"
+          :text="task.dev_journey || ''" 
+          :editable="editable"
+        />
+        
+        <task-description-item 
+          title="SEO principles"
+          field_id="SEO_principles" 
+          :task_id="task.id"
+          :text="task.SEO_principles || ''" 
+          :editable="editable"
+        />
+        
+        <task-description-item 
+          title="Best practices"
+          field_id="best_practices" 
+          :task_id="task.id"
+          :text="task.best_practices || ''" 
+          :editable="editable"
+        />
     </div>
   </div>  
 </template>
@@ -31,7 +58,14 @@
 <script>
 import TaskDescriptionItem from '../components/TaskDescriptionItem.vue'
 export default {
+  
   props: {
+    editable: {
+      required: false,
+      type: Boolean,
+      default: false
+    },
+
     showBackButton: {
       required: false,
       type: Boolean,

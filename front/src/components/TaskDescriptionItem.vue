@@ -3,15 +3,42 @@
         <h3 class="description-title">
             {{title}}
         </h3>
-        <p class="description-text">
+        <p v-if="!editable" class="description-text">
             {{text}}
         </p>
+        <textarea 
+            v-else
+            class="description-text"  
+            :id="field_id"
+            cols="30" 
+            rows="10"
+            @change="updateItemDescription"
+        >{{text}}</textarea>
+        
     </div>
 </template>
 
 <script>
     export default {
+        
         props: {
+            editable: {
+                required: false, 
+                type: Boolean,
+                default: false,
+            },
+
+            field_id: {
+                required: false,
+                type: String,
+                default: ''
+            },
+
+            task_id: {
+                required: true,
+                type: String,
+            },
+
             title: {
                 required: true,
                 type: String
@@ -21,11 +48,30 @@
                 required: true,
                 type: String
             }
+        },
+
+        methods: {
+            updateItemDescription(e) {
+                let bodyy = `{
+                    payload: {
+                        id: ${e.target.task_id},
+                        ${key_id}: ${e.target.value}
+                    }
+                }`
+
+                fetch('http://localhost:3021/tasks', {
+                    method: 'POST', 
+                    body: body,
+                    headers: {"Content-type": "application/json;charset=UTF-8"}
+                }).then( res => {
+                    console.log(res.body.json);
+                });
+            }
         }
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .task-description-item {
         margin-bottom: 1rem; 
     }
@@ -40,5 +86,17 @@
     .description-text {
         font-size: .875rem;
         color: var(--text-color);
+        
+    }
+
+    textarea.description-text {
+        width: 100%;
+        background: #F5F5F5;
+        border-color: #DADADA;
+        padding: 1rem;
+
+        &:focus {
+            outline-color: #666;
+        }
     }
 </style>

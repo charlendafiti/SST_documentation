@@ -18,14 +18,20 @@
             v-if="!!query"
         >x</button>
     </div>
-    <task v-for="task in tasks" :key="task.id" :task="task" />
+    <task-component 
+        v-for="task in tasks" 
+        :key="task.id" 
+        :task="task"
+        :editable="false"
+    />
 </template>
 
 <script>
-import _ from "lodash";
+import { getTasks } from "../helpers/tasks";
 
 // components 
-import Task from "../components/Task.vue";
+import TaskComponent from "../components/Task.vue";
+
 
 export default {
     mounted: function () {
@@ -33,7 +39,7 @@ export default {
     },
 
     components: {
-        Task,
+        TaskComponent,
     },
 
     data: _ => ({
@@ -77,8 +83,7 @@ export default {
 
         fetchJson() {
             this.isLoading = true;
-             return fetch('http://localhost:3021/tasks')
-            .then(readableStream => readableStream.json());  
+             return getTasks();  
         },
 
         loadJson() {
