@@ -1,38 +1,41 @@
 const fs = require('fs');
-
+const database = require('../services/database');
 function TaskController() {
 
-    this.getTasks = function(req, res){
-        res.send(this.tasks);
+    this.getTasks = async function(req, res){
+        
+        let tasks = await database.getAllTasks();
+        //let tasksFormated = tasks.map(task => { return {...task,id: task.jira_id}});
+        res.send(tasks);
     }    
 
-    this.updateTask = function(req, res){
+    this.updateTask = async function(req, res){
         let currentTaskIdx;
 
         let dataToUpdate = req.body.payload;
 
-        console.log(dataToUpdate);
+        database.udpateTask(dataToUpdate);
 
-        this.tasks.map( (task, index) => {
-            if(task.id == dataToUpdate.id){
-                this.tasks[index] = {
-                    ...task,
-                    ...req.body.payload
-                }
-            }
-            let jsonResult = JSON.stringify(this.tasks);
-            fs.writeFileSync('./tasks.json', jsonResult);
-        })
+        // this.tasks.map( (task, index) => {
+        //     if(task.id == dataToUpdate.id){
+        //         this.tasks[index] = {
+        //             ...task,
+        //             ...req.body.payload
+        //         }
+        //     }
+        //     let jsonResult = JSON.stringify(this.tasks);
+        //     fs.writeFileSync('./tasks.json', jsonResult);
+        // })
 
         res.send('ok');
     }
 
-    this.loadTasks = function(){
-        let tasks = fs.readFileSync('./tasks.json', {encoding: 'utf-8'});
-        return JSON.parse(tasks);
-    }
+    // this.loadTasks = async function(){
+    //     let tasks = database.getAllTasks();
+    //     return JSON.parse(tasks);
+    // }
 
-    this.tasks = this.loadTasks();
+    //this.tasks = this.loadTasks();
 
     return this;
 }
