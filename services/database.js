@@ -7,7 +7,6 @@ class database {
 
     constructor() {
         this.checkDataAndStructure();
-        this.getAllTasks();
     }
 
     getDatabase() {
