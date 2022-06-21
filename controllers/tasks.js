@@ -5,7 +5,6 @@ function TaskController() {
     this.getTasks = async function(req, res){
         
         let tasks = await database.getAllTasks();
-        //let tasksFormated = tasks.map(task => { return {...task,id: task.jira_id}});
         res.send(tasks);
     }    
 
@@ -16,26 +15,8 @@ function TaskController() {
 
         database.udpateTask(dataToUpdate);
 
-        // this.tasks.map( (task, index) => {
-        //     if(task.id == dataToUpdate.id){
-        //         this.tasks[index] = {
-        //             ...task,
-        //             ...req.body.payload
-        //         }
-        //     }
-        //     let jsonResult = JSON.stringify(this.tasks);
-        //     fs.writeFileSync('./tasks.json', jsonResult);
-        // })
-
         res.send('ok');
     }
-
-    // this.loadTasks = async function(){
-    //     let tasks = database.getAllTasks();
-    //     return JSON.parse(tasks);
-    // }
-
-    //this.tasks = this.loadTasks();
 
     return this;
 }
