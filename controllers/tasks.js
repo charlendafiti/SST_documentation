@@ -9,8 +9,12 @@ function TaskController() {
     this.updateTask = function(req, res){
         let currentTaskIdx;
 
+        let dataToUpdate = req.body.payload;
+
+        console.log(dataToUpdate);
+
         this.tasks.map( (task, index) => {
-            if(task.id == req.body.payload.id){
+            if(task.id == dataToUpdate.id){
                 this.tasks[index] = {
                     ...task,
                     ...req.body.payload
