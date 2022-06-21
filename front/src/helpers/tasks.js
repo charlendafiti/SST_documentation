@@ -1,4 +1,4 @@
 export async function getTasks() {
-    return await fetch('http://localhost:3021/tasks')
+    return await fetch('/tasks')
         .then(readableStream => readableStream.json());
 } 
