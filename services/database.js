@@ -103,7 +103,7 @@ class database {
 
     async getAllTasks() {
         const db = this.getDatabase();
-        return await new Promise((resolve, rejct) => {
+        return await new Promise((resolve, reject) => {
             db.all('select * from tasks', (err, data) => {
                 if (!err) {
                     resolve(data);
