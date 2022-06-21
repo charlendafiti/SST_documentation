@@ -14,7 +14,6 @@
     </router-link>
       
       <router-link :to="{path: `/task/${task.id}`}">
-        <span class="task-id">{{task.id}}</span>
         <span class="task-jira-id">{{task.jira_id}}</span>
       </router-link>
       
@@ -129,7 +128,6 @@ textarea {
   @extend .task-id; 
   background: #eaeaea;
   color: #000; 
-  margin-left: .5rem;
   font-weight: bold;
 }
 

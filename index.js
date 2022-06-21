@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true}))
 
 const port = process.argv[2] || 3021;
 
-app.use(express.static('./static/'));
+app.use(express.static('./front/dist/'));
 
 app.use('/tasks', taskRoutes);
 
