@@ -21,7 +21,6 @@ app.use(express.urlencoded({ extended: true}))
 const port = 3021;
 
 app.use(express.static('./static/'));
-//app.use(express.json());
 
 app.use('/tasks', taskRoutes);
 

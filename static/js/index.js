@@ -15,7 +15,16 @@ function OnInput() {
 }
 
 function onFieldChange(changed){
-    let body = `{"payload": {"id": "${params.id}","${changed.target.id}": "${changed.target.value}"}}`;
+    let fieldValue = changed.target.value.replace(/[\\]/g, '\\\\')
+    .replace(/[\"]/g, '\\\"')
+    .replace(/[\/]/g, '\\/')
+    .replace(/[\b]/g, '\\b')
+    .replace(/[\f]/g, '\\f')
+    .replace(/[\n]/g, '\\n')
+    .replace(/[\r]/g, '\\r')
+    .replace(/[\t]/g, '\\t');
+    
+    let body = `{"payload": {"id": "${params.id}","${changed.target.id}": "${fieldValue}"}}`;
 
     fetch('./tasks/',
         {

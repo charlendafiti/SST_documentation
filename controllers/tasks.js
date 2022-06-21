@@ -1,7 +1,8 @@
 const fs = require('fs');
-
+const database = require('../services/database');
 function TaskController() {
 
+<<<<<<< HEAD
     this.getTasks = function(req, res){
         res.send(this.tasks);
     }
@@ -9,30 +10,23 @@ function TaskController() {
     this.getTask = function(req, res) {
         res.send(this.tasks.filter(task => task.id == req.params.id));
     }
+=======
+    this.getTasks = async function(req, res){
+        
+        let tasks = await database.getAllTasks();
+        res.send(tasks);
+    }    
+>>>>>>> master
 
-    this.updateTask = function(req, res){
+    this.updateTask = async function(req, res){
         let currentTaskIdx;
 
-        this.tasks.map( (task, index) => {
-            if(task.id == req.body.payload.id){
-                this.tasks[index] = {
-                    ...task,
-                    ...req.body.payload
-                }
-            }
-            let jsonResult = JSON.stringify(this.tasks);
-            fs.writeFileSync('./tasks.json', jsonResult);
-        })
+        let dataToUpdate = req.body.payload;
+
+        database.udpateTask(dataToUpdate);
 
         res.send('ok');
     }
-
-    this.loadTasks = function(){
-        let tasks = fs.readFileSync('./tasks.json', {encoding: 'utf-8'});
-        return JSON.parse(tasks);
-    }
-
-    this.tasks = this.loadTasks();
 
     return this;
 }
