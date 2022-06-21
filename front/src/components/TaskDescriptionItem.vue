@@ -66,7 +66,7 @@
                 let body = `{"payload": {"id": "${this.task_id}","${this.field_id}": "${content}"}}`;
                 
 
-                fetch('http://localhost:3021/tasks', {
+                fetch('/tasks', {
                     method: 'POST', 
                     body: body,
                     headers: {"Content-type": "application/json;charset=UTF-8"}
