@@ -7,7 +7,7 @@
         <input 
             type="text" 
             maxlength="20" 
-            placeholder="Informe pelo menos 3 caracteres para buscar" 
+            placeholder="ID do banco ou do Jira" 
             @input="search"
             v-model="query"
             
@@ -65,12 +65,11 @@ export default {
 
             this.timeout = setTimeout(() => {
                 console.log(this.query)
-                if(this.query.length >= 3) {
+                if(this.query.length >= 1) {
                     this.fetchJson().then(tasks => {
                         this.tasks = tasks.filter(task => {
                             return (
-                                task.id.includes(this.query.toUpperCase()) || 
-                                task.title.includes(this.query)
+                                (task.id == this.query) || (task.jira_id.includes(this.query.toUpperCase()) ) 
                             ); 
                         });
                         this.isLoading = false; 

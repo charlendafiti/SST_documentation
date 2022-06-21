@@ -36,7 +36,7 @@
 
             task_id: {
                 required: true,
-                type: String,
+                type: Number,
             },
 
             title: {

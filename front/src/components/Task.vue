@@ -15,9 +15,12 @@
       
       <router-link :to="{path: `/task/${task.id}`}">
         <span class="task-id">{{task.id}}</span>
+        <span class="task-jira-id">{{task.jira_id}}</span>
       </router-link>
       
-      <h2 class="task-title">{{task.title}}</h2>
+       <router-link :to="{path: `/task/${task.id}`}">
+        <h2 class="task-title">{{task.title}}</h2>
+       </router-link>
     </div>
     <div class="task-body">
         <task-description-item 
@@ -84,7 +87,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 textarea {
     width: 100%;
@@ -120,6 +123,14 @@ textarea {
     border-radius: 5px;
     margin-bottom: 4px;
     cursor: pointer;
+}
+
+.task-jira-id {
+  @extend .task-id; 
+  background: #eaeaea;
+  color: #000; 
+  margin-left: .5rem;
+  font-weight: bold;
 }
 
 .back-button {
