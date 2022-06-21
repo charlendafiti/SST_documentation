@@ -52,12 +52,19 @@
 
         methods: {
             updateItemDescription(e) {
-                let bodyy = `{
-                    payload: {
-                        id: ${e.target.task_id},
-                        ${key_id}: ${e.target.value}
-                    }
-                }`
+                
+                let content = e.target.value.replace(/[\\]/g, '\\\\')
+                .replace(/[\"]/g, '\\\"')
+                .replace(/[\/]/g, '\\/')
+                .replace(/[\b]/g, '\\b')
+                .replace(/[\f]/g, '\\f')
+                .replace(/[\n]/g, '\\n')
+                .replace(/[\r]/g, '\\r')
+                .replace(/[\t]/g, '\\t');
+
+
+                let body = `{"payload": {"id": "${this.task_id}","${this.field_id}": "${content}"}}`;
+                
 
                 fetch('http://localhost:3021/tasks', {
                     method: 'POST', 
@@ -67,7 +74,7 @@
                     console.log(res.body.json);
                 });
             }
-        }
+        },
     }
 </script>
 
