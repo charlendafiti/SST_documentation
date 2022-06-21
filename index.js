@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 
-const port = 3021;
+const port = process.argv[2] || 3021;
 
 app.use(express.static('./static/'));
 
