@@ -1,22 +1,26 @@
 <script setup>
   import { RouterLink } from 'vue-router';
-  import { nl2br } from "../helpers/textFormater";
 </script>
 
 <template>
   <div class="task" v-if="task.id">
     <div class="task-header">
 
-    <router-link :to="{path: '/'}">
-      <button 
-        v-if="showBackButton" 
-        class="back-button"
-      > Voltar </button>
-    </router-link>
+    
+    <button
+      @click="redirectToRoot" 
+      v-if="showBackButton" 
+      class="back-button"
+    > Voltar </button>
+    
       
       <router-link :to="{path: `/task/${task.id}`}">
         <span class="task-jira-id">{{task.jira_id}}</span>
       </router-link>
+
+      <a class="jira-button" :href="`${jiraURL}/${task.jira_id}`" target="_blank">
+        Link do Jira
+      </a>
       
        <router-link :to="{path: `/task/${task.id}`}">
         <h2 class="task-title">{{task.title}}</h2>
@@ -59,7 +63,10 @@
 </template>
 
 <script>
-import TaskDescriptionItem from '../components/TaskDescriptionItem.vue'
+import TaskDescriptionItem from '../components/TaskDescriptionItem.vue';
+import GeneralConfig from "../config/generalConfig";
+import { getTasks } from '../helpers/tasks'; 
+
 export default {
   
   props: {
@@ -84,6 +91,19 @@ export default {
   components: {
     TaskDescriptionItem
   },
+
+  methods: {
+    redirectToRoot() {
+       
+      this.$router.push('/')
+    }
+  },
+
+  computed: {
+    jiraURL() {
+      return GeneralConfig.jira_url; 
+    }
+  }
 }
 </script>
 
@@ -130,6 +150,15 @@ textarea {
   background: #eaeaea;
   color: #000; 
   font-weight: bold;
+}
+
+.jira-button {
+  @extend .task-id; 
+  background: #0052cc; 
+  color: white;
+  border: none;
+  font-weight: 600;
+  margin-left: 15px;
 }
 
 .back-button {

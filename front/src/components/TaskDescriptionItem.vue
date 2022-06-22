@@ -3,8 +3,7 @@
         <h3 class="description-title">
             {{title}}
         </h3>
-        <p v-if="!editable" class="description-text">
-            {{text}}
+        <p v-if="!editable" class="description-text" v-html="text">
         </p>
         <textarea 
             v-else
@@ -94,6 +93,7 @@
     .description-text {
         font-size: .875rem;
         color: var(--text-color);
+        white-space: pre-line;
         
     }
 
