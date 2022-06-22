@@ -1,3 +1,4 @@
+import config from '../config/generalConfig.js';
 const urlSearchParams = new URLSearchParams(window.location.search);
 const params = Object.fromEntries(urlSearchParams.entries());
 
@@ -26,7 +27,7 @@ function onFieldChange(changed){
     
     let body = `{"payload": {"id": "${params.id}","${changed.target.id}": "${fieldValue}"}}`;
 
-    fetch('./tasks/',
+    fetch((config.host || '') + '/tasks',
         {
             method: 'POST', 
             body: body,
@@ -37,7 +38,7 @@ function onFieldChange(changed){
 }
 
 
-fetch('./tasks/').
+fetch((config.host || '') + '/tasks').
     then( data => {
         data.json().then( res => {
             res

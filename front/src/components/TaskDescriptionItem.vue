@@ -19,6 +19,7 @@
 </template>
 
 <script>
+    import config from '../config/generalConfig.js';
     export default {
         
         props: {
@@ -66,7 +67,7 @@
                 let body = `{"payload": {"id": "${this.task_id}","${this.field_id}": "${content}"}}`;
                 
 
-                fetch('/tasks', {
+                fetch((config.host || '') + '/tasks', {
                     method: 'POST', 
                     body: body,
                     headers: {"Content-type": "application/json;charset=UTF-8"}

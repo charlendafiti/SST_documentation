@@ -18,6 +18,14 @@
             v-if="!!query"
         >x</button>
     </div>
+
+    <div class="filters">
+        <button :class="{active: filters.no_description}" @click="toggleNoDescription">No Description </button>
+        <button :class="{active: filters.no_dev_journey}" @click="toggleNoDevJourney">No Dev Journey </button>
+        <button :class="{active: filters.no_best_practices}" @click="toggleNoBestPractices">No Best Practices</button>
+        <button :class="{active: filters.no_seo_principles}" @click="toggleNoSeoPrinciples">No SEO Principles </button>
+    </div>
+
     <task-component 
         v-for="task in tasks" 
         :key="task.id" 
@@ -35,7 +43,7 @@ import TaskComponent from "../components/Task.vue";
 
 export default {
     mounted: function () {
-        this.init(); 
+        this.init();    
     },
 
     components: {
@@ -47,10 +55,19 @@ export default {
         query: null,
         tasks: [], 
         timeout: null,
+        localStorage: null,
+        filters: {
+            no_description: false,
+            no_dev_journey: false,
+            no_seo_principles: false,
+            no_best_practices: false
+        }
     }),
 
     methods: {
         init() { 
+            this.localStorage = window.localStorage; 
+            this.filters = this.getFiltersFromLocalStorage();            
             this.loadJson();
         },
 
@@ -64,7 +81,6 @@ export default {
             clearTimeout(this.timeout); 
 
             this.timeout = setTimeout(() => {
-                console.log(this.query)
                 if(this.query.length >= 1) {
                     this.fetchJson().then(tasks => {
                         this.tasks = tasks.filter(task => {
@@ -86,12 +102,98 @@ export default {
         },
 
         loadJson() {
+            
             this.fetchJson().then(tasks => { 
-                this.tasks = tasks;
+                
+                
+                this.tasks = tasks.filter(task => {
+                    let result = true; 
+
+                    if(this.filters.no_description && result) {
+                        result = !(!!task.description.trim() && result);
+                    }
+
+                    if(this.filters.no_dev_journey && result) {
+                        result = !(!!task.dev_journey.trim() && result);
+                    }
+
+                    if(this.filters.no_seo_principles && result) {
+                        result = !(!!task.SEO_principles.trim() && result);
+                    }
+
+                    if(this.filters.no_best_practices && result) {
+                        result = !(!!task.best_practices.trim() && result);
+                    }
+
+                    return result; 
+                });
+
                 this.isLoading = false;
             });
+        },
+
+        getFiltersFromLocalStorage() {
+            
+            let localStorage = window.localStorage; 
+
+            return {
+                no_description: this.getBoolean(localStorage.no_description),
+                no_dev_journey: this.getBoolean(localStorage.no_dev_journey),
+                no_seo_principles: this.getBoolean(localStorage.no_seo_principles),
+                no_best_practices: this.getBoolean(localStorage.no_best_practices)
+            }
+        },
+
+        toggleNoDescription() {
+            let toggleValue = !this.filters.no_description;
+
+            this.localStorage.setItem('no_description',toggleValue);
+            this.filters.no_description = toggleValue; 
+
+            this.loadJson();
+        },
+        
+        toggleNoDevJourney() {
+            let toggleValue = !this.filters.no_dev_journey;
+
+            this.localStorage.setItem('no_dev_journey',toggleValue);
+            this.filters.no_dev_journey = toggleValue; 
+
+            this.loadJson();
+        },
+
+        toggleNoBestPractices() {
+           let toggleValue = !this.filters.no_best_practices;
+
+            this.localStorage.setItem('no_best_practices',toggleValue);
+            this.filters.no_best_practices = toggleValue; 
+
+            this.loadJson();
+        },
+        
+        toggleNoSeoPrinciples() {
+            let toggleValue = !this.filters.no_seo_principles;
+
+            this.localStorage.setItem('no_seo_principles',toggleValue);
+            this.filters.no_seo_principles = toggleValue; 
+
+            this.loadJson();
+        },
+
+        getBoolean(value){ 
+            switch(value) { 
+                case true: 
+                case "true": 
+                case 1: 
+                case "1": 
+                case "on": 
+                case "yes": 
+                return true; 
+                default: 
+                return false; 
+            } 
         }
-    }
+    },
 }
 </script>
 
@@ -131,6 +233,28 @@ export default {
         color: #666;
         position: absolute;
         bottom: -1.2rem
+    }
+}
+
+.filters {
+    margin: 10px 0; 
+    display: flex;
+    justify-content: flex-start;
+
+    button {
+        margin-right: 10px;
+        border: none; 
+        padding: 5px 10px;
+        border-radius: 3px;
+        background-color: #eaeaea;
+        border: 1px solid #666;
+        cursor: pointer;
+        transition: all .1s ease-in;
+
+        &.active {
+            background: #212121; 
+            color: white; 
+        }
     }
 }
 
