@@ -1,37 +1,39 @@
 <template>
-    <header>
-        <h1 class="main-title"> Tarefas de Q1 e Q3</h1>
-    </header>
-    <div class="input-group">
-        <label for="search">Informe o ID da task: </label>
-        <input 
-            type="text" 
-            maxlength="20" 
-            placeholder="ID do banco ou do Jira" 
-            @input="search"
-            v-model="query"
-            
+   
+    <header-component />
+    <div class="main">
+        <div class="input-group">
+            <input 
+                type="text" 
+                maxlength="20" 
+                placeholder="ID do banco ou do Jira" 
+                @input="onTyping"
+                v-on:keyup.enter="search" 
+                v-model="query"
+            />
+            <small v-if="isLoading"> Loading...</small>
+            <button 
+                @click="clearSearch"
+                v-if="!!query"
+            >x</button>
+        </div>
+    
+        <div class="filters">
+            <button :class="{active: filters.no_description}" @click="toggleNoDescription">No Description </button>
+            <button :class="{active: filters.no_dev_journey}" @click="toggleNoDevJourney">No Dev Journey </button>
+            <button :class="{active: filters.no_best_practices}" @click="toggleNoBestPractices">No Best Practices</button>
+            <button :class="{active: filters.no_seo_principles}" @click="toggleNoSeoPrinciples">No SEO Principles </button>
+        </div>
+    
+        <results-component :tasks="tasks"/>
+        
+        <task-component 
+            v-for="task in tasks" 
+            :key="task.id" 
+            :task="task"
+            :editable="false"
         />
-        <small v-if="isLoading"> Loading...</small>
-        <button 
-            @click="clearSearch"
-            v-if="!!query"
-        >x</button>
     </div>
-
-    <div class="filters">
-        <button :class="{active: filters.no_description}" @click="toggleNoDescription">No Description </button>
-        <button :class="{active: filters.no_dev_journey}" @click="toggleNoDevJourney">No Dev Journey </button>
-        <button :class="{active: filters.no_best_practices}" @click="toggleNoBestPractices">No Best Practices</button>
-        <button :class="{active: filters.no_seo_principles}" @click="toggleNoSeoPrinciples">No SEO Principles </button>
-    </div>
-
-    <task-component 
-        v-for="task in tasks" 
-        :key="task.id" 
-        :task="task"
-        :editable="false"
-    />
 </template>
 
 <script>
@@ -39,6 +41,8 @@ import { getTasks } from "../helpers/tasks";
 
 // components 
 import TaskComponent from "../components/Task.vue";
+import HeaderComponent from "../components/Header.vue";
+import ResultsComponent from "../components/Result.vue";
 
 
 export default {
@@ -48,6 +52,8 @@ export default {
 
     components: {
         TaskComponent,
+        HeaderComponent,
+        ResultsComponent
     },
 
     data: _ => ({
@@ -76,24 +82,33 @@ export default {
             this.loadJson();
         },
 
+        onEnter() {
+            this.search();
+        },
+
+        onTyping() {
+            clearTimeout(this.timeout); 
+            this.timeout = setTimeout(() => this.search(), 1000);
+        },
+
         search() {
             
-            clearTimeout(this.timeout); 
+            if(this.query.length >= 1) {
 
-            this.timeout = setTimeout(() => {
-                if(this.query.length >= 1) {
-                    this.fetchJson().then(tasks => {
-                        this.tasks = tasks.filter(task => {
-                            return (
-                                (task.id == this.query) || (task.jira_id.includes(this.query.toUpperCase()) ) 
-                            ); 
-                        });
-                        this.isLoading = false; 
+                this.isLoading = true;
+
+                this.fetchJson().then(tasks => {
+                    this.tasks = tasks.filter(task => {
+                        return (
+                            (task.id == this.query) || (task.jira_id.includes(this.query.toUpperCase()) ) 
+                        ); 
                     });
-                } else {
-                    this.loadJson();
-                }
-            }, 1000);
+                    this.isLoading = false; 
+                });
+            } else {
+                this.loadJson();
+            }
+            
         },
 
         fetchJson() {
@@ -198,18 +213,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.main-title {
-    font-size: 2rem;
-    color: var(--title-color);
-    display: block;
-    margin-bottom: 1rem;
-    font-weight: 700;
-}
 
 .input-group {
     display: flex; 
     flex-direction: column;
-    margin: 1.5rem 0;
+    margin: 1rem 0;
     margin-bottom: 2rem;
     position: relative;
 
@@ -225,7 +233,7 @@ export default {
         border: none;
         position: absolute;
         right: 10px;
-        top: 50%;
+        top: 20%;
         cursor: pointer;
     }
      
@@ -246,32 +254,29 @@ export default {
         border: none; 
         padding: 5px 10px;
         border-radius: 3px;
-        background-color: #eaeaea;
-        border: 1px solid #666;
+        background-color: #999999cc;
+        color: white;
         cursor: pointer;
         transition: all .1s ease-in;
 
         &.active {
-            background: #212121; 
+            background: #000000cc; 
             color: white; 
         }
     }
 }
 
-.input-group label {
-    font-weight: 600;
-    font-size: .875rem;
-}
-
 input[type="text"] {
+    height: 40px;
     background-color: white; 
     font-size: .875rem;
     border: none;
     border-radius: 5px; 
-    border: 2px solid var(--border-color);
     padding: 8px 12px; 
     outline: 0;
-    color: #212121;
+    border: 1px solid var(--color-300);
+    color: var(--text-color-800);
+    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.1);
 
     &:focus {
         transition: border-color .2s linear;
