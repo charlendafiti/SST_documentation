@@ -1,5 +1,6 @@
 <script setup>
   import { RouterLink } from 'vue-router';
+  import { nl2br } from "../helpers/textFormater";
 </script>
 
 <template>
