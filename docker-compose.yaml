@@ -5,4 +5,4 @@ services:
       - "3021:3021"
     volumes:
       - ${PWD}:/app
-    entrypoint: "nodemon -i tasksSaved.json -i tasks.json -x yarn && node index.js"
+    entrypoint: "nodemon -i tasksSaved.json -i tasks.json -i front/dist/**/* -x yarn && cd front && yarn && yarn build && cd .. && node index.js"
