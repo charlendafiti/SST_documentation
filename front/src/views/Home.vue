@@ -7,7 +7,7 @@
                 type="text" 
                 maxlength="20" 
                 placeholder="ID do banco ou do Jira" 
-                @input="search"
+                @input="onTyping"
                 v-on:keyup.enter="search" 
                 v-model="query"
             />
@@ -88,7 +88,7 @@ export default {
 
         onTyping() {
             clearTimeout(this.timeout); 
-            this.timeout = setTimeout(() => this.search, 1000);
+            this.timeout = setTimeout(() => this.search(), 1000);
         },
 
         search() {
