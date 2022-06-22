@@ -5,14 +5,15 @@
         </h3>
         <p v-if="!editable" class="description-text" v-html="text">
         </p>
-        <textarea 
-            v-else
-            class="description-text"  
-            :id="field_id"
-            cols="30" 
-            rows="10"
-            @change="updateItemDescription"
-        >{{text}}</textarea>
+        <div v-else class="grow-wrap">
+            <textarea 
+                class="description-text"  
+                :id="field_id"
+                cols="30" 
+                rows="10"
+                @change="updateItemDescription"
+            >{{text}}</textarea>
+        </div>
         
     </div>
 </template>
@@ -84,27 +85,51 @@
     }
 
     .description-title {
-        font-size: 1rem; 
-        color: var(--task-body-title);
+        font-size: .875rem; 
+        color: var(--color-800);
         margin-bottom: 5px;
-        font-weight: bold;
+        font-weight: 700;
     }
 
     .description-text {
         font-size: .875rem;
-        color: var(--text-color);
+        color: var(--color-600);
         white-space: pre-line;
         
     }
 
     textarea.description-text {
         width: 100%;
-        background: #F5F5F5;
-        border-color: #DADADA;
+        overflow: auto;
+
+        background: #f1f1f1;
+        border-color: var(--color-100);
         padding: 1rem;
+        color: var(--color-800);
+        content: attr(data-replicated-value) " ";
 
         &:focus {
             outline-color: #666;
         }
+    }
+
+    .grow-wrap {
+        display: grid;
+    }
+    .grow-wrap::after {
+        content: attr(data-replicated-value) " ";
+        visibility: hidden;
+    }
+
+    .grow-wrap > textarea {
+        resize: none;
+        overflow: hidden;
+    }
+    .grow-wrap > textarea,
+    .grow-wrap::after {
+    
+    padding: 0.5rem;
+    font: inherit;
+    grid-area: 1 / 1 / 2 / 2;
     }
 </style>

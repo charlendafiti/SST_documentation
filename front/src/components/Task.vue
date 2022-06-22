@@ -122,26 +122,23 @@ textarea {
 .task {
     border-radius: 5px;
     margin-bottom: 1.5rem;
-    -webkit-box-shadow: -1px 1px 1px 2px rgb(228 239 253); 
-    box-shadow: -1px 1px 1px 2px rgb(228 239 253);
+    border: 1px solid var(--color-50);
+    background-color: lighten(#f2f2f2, 5);
+    box-shadow: 0px 0px 0px 1px rgba(2,2,2,.1);
 }
 
 .task-header {
     border-radius: 5px 5px 0 0;
     padding: .8rem 1rem; 
-    background: white; 
-    border-bottom: 2px solid var(--border-color)
+    border-bottom: 1px solid var(--color-100);
 }
 
 .task-id {
-    font-size: .8rem;
-    color: #333;
+    font-size: .7rem;
     font-weight: 300;
-    background-color: #eaeaea;
     display: inline-block;
-    padding: 5px 10px;
+    padding: 4px 8px;
     border-radius: 5px;
-    margin-bottom: 4px;
     cursor: pointer;
 }
 
@@ -150,6 +147,9 @@ textarea {
   background: #eaeaea;
   color: #000; 
   font-weight: bold;
+  color: var(--color-700);
+  background-color: var(--color-100);
+  float: left;
 }
 
 .jira-button {
@@ -158,15 +158,14 @@ textarea {
   color: white;
   border: none;
   font-weight: 600;
-  margin-left: 15px;
+  margin-left: 8px;
 }
 
 .back-button {
     display: block;
-    background-color: var(--back-button-bg);
+    background-color: var(--color-600);
     color: white;
     border: none;
-    margin-bottom: 10px;
     padding: 5px 10px;
     border-radius: 5px;
     font-weight: 500;
@@ -183,12 +182,14 @@ textarea {
 .task-header .task-title {
     color: var(--title-color);
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    clear: both;
+    margin-top: 8px;
 }
 
 .task-body {
     border-radius:  0 0 5px 5px;
     padding: .8rem 1rem; 
-    background-color: var(--task-bg);
+    word-break: break-all;
 }
 </style>
