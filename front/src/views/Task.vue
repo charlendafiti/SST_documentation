@@ -9,10 +9,16 @@
 <script>
 import Task from "../components/Task.vue"
 import HeaderComponent from "../components/Header.vue"
-import { getTasks } from "../helpers/tasks";
+import { getTasks, isValidToken } from "../helpers/tasks";
 
 
 export default {
+    beforeCreate() {
+        if(!isValidToken()) {
+            this.$router.push({name: 'token'}); 
+        }
+    },
+
     created() {
         const taskId = this.$route.params.id; 
 

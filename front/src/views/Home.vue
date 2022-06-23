@@ -37,15 +37,19 @@
 </template>
 
 <script>
-import { getTasks } from "../helpers/tasks";
+import { getTasks, isValidToken } from "../helpers/tasks";
 
 // components 
 import TaskComponent from "../components/Task.vue";
 import HeaderComponent from "../components/Header.vue";
 import ResultsComponent from "../components/Result.vue";
 
-
 export default {
+    beforeCreate() {
+        if(!isValidToken()) {
+            this.$router.push({name: 'token'}); 
+        }
+    },
     mounted: function () {
         this.init();    
     },
@@ -265,23 +269,4 @@ export default {
         }
     }
 }
-
-input[type="text"] {
-    height: 40px;
-    background-color: white; 
-    font-size: .875rem;
-    border: none;
-    border-radius: 5px; 
-    padding: 8px 12px; 
-    outline: 0;
-    border: 1px solid var(--color-300);
-    color: var(--text-color-800);
-    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.1);
-
-    &:focus {
-        transition: border-color .2s linear;
-        border-color: darken(#DEE7F2, 15);
-    }
-}
-
 </style>   
