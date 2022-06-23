@@ -19,6 +19,7 @@
 </template>
 
 <script>
+    import { getToken} from '../helpers/tasks';
     import config from '../config/generalConfig.js';
     export default {
         
@@ -70,7 +71,10 @@
                 fetch((config.host || '') + '/tasks', {
                     method: 'POST', 
                     body: body,
-                    headers: {"Content-type": "application/json;charset=UTF-8"}
+                    headers: {
+                        "Content-type": "application/json;charset=UTF-8",
+                        token: getToken(),
+                    }
                 }).then( res => {
                     console.log(res.body.json);
                 });

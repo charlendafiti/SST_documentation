@@ -6,8 +6,11 @@ import config from '../config/generalConfig.js';
  * @returns array
  */
 export async function getTasks() {
-    return await fetch((config.host || '') + '/tasks')
-        .then(readableStream => readableStream.json());
+    return await fetch((config.host || '') + '/tasks', {
+        headers: new Headers({
+            token: getToken()
+        })
+    }).then(readableStream => readableStream.json());
 } 
 
 /**
@@ -24,4 +27,13 @@ export function isValidToken() {
     }
 
     return token == config.token;  
+}
+
+/**
+ * Returns the token 
+ * 
+ * @returns String
+ */
+export function getToken() {
+    return window.localStorage.token; 
 }
