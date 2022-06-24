@@ -20,11 +20,14 @@ app.use(express.urlencoded({ extended: true}))
 
 const port = process.argv[2] || 3021;
 
-app.use(express.static('./front/dist/'));
+
+const staticFolder = process.argv[3] || './front/dist/';
+
+app.use(express.static(staticFolder));
+app.use(/\/task\/.*/, express.static(staticFolder));
 
 app.use('/tasks', taskRoutes);
 
-app.use(/\/task\/.*/, express.static('./front/dist/'));
 
 app.get('/getTasks1/', (req, res) => {
     let mockTask = fs.readFileSync('./tasks.json', {encoding: 'utf-8'});
@@ -35,4 +38,5 @@ app.get('/getTasks1/', (req, res) => {
 
 app.listen(port, _ => {
     console.log(`Listening on ${port} port`);
+    console.log('Static folder: ', staticFolder);
 });

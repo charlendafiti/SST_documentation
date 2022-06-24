@@ -1,6 +1,20 @@
+<script>
+    import HambMenu from './HambMenu.vue';
+
+    export default {
+        components: {
+            HambMenu
+        }
+    }
+</script>
+
 <template>
     <header>
-        <img src="../assets/images/dafiti-logo.webp" alt="">
+        <div>
+            <div class="logo">
+                <img src="../assets/images/dafiti-logo.webp" alt="">
+            </div>
+        </div>
         <h1 class="main-title"> Tarefas de Q1 e Q3</h1>
     </header>
 </template>
@@ -19,6 +33,10 @@ header {
         width: 100%;
         max-width: 125px;
     }
+
+    .logo {
+        display: inline-flex;
+    }
 }
 
 .main-title {
@@ -27,5 +45,12 @@ header {
     font-weight: bold;
     display: block;
     line-height: 35px;
+}
+
+@media screen and (max-width: 500px) {
+    header {
+        display: flex;
+        flex-direction: column;
+    }
 }
 </style>

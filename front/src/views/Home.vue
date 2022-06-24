@@ -269,4 +269,16 @@ export default {
         }
     }
 }
+
+@media screen and (max-width: 500px) {
+    .filters {
+        display: flex;
+        flex-direction: column;
+    }
+    button {
+        display: inline-block;
+        margin: 0.2rem 0;
+        width: 100%;
+    }
+}
 </style>   
