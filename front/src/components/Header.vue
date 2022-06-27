@@ -62,6 +62,7 @@ header {
         font-weight: 500;
         padding: 8px 16px;
         margin-left: auto;
+        cursor: pointer;
     }
 }
 
