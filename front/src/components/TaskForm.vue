@@ -10,6 +10,12 @@
             </ul>
         </p>
     </div>
+
+    <div v-if="success" class="row alert alert-success">
+        Salvo com sucesso    
+        <div class="button" @click="() => {this.success = false}">x</div>
+    </div>
+
     <div class="row">
         <div class="form-group">
             <label for="jira-id">Jira ID</label>
@@ -53,6 +59,7 @@
         data: _ => ({
             isProcessing: false,
             errors: [],
+            success: false,
             task: {
                 jira_id: '',
                 title: ''
@@ -80,8 +87,13 @@
                             "Content-type": "application/json;charset=UTF-8",
                             token: getToken(),
                         }
-                    }).then(response => response.json())
-                    .then(json => console.log(json))
+                    })
+                    .then(response => {
+                        this.errors = [];
+                        this.task.jira_id = '';
+                        this.task.title = '';
+                        this.success = true;
+                    })
                     .catch(err => console.log(err));
                 }
 
@@ -156,5 +168,30 @@
         border-color: #f5c6cb; 
         padding: 1rem; 
         border-radius: 4px;
+    }
+
+    .alert {
+            position: relative;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+        position: relative;
+
+        &-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .button {
+            width: 4px;
+            height: 4px;
+            position: absolute;
+            top: 5px; 
+            right: 16px;
+            font-weight: bold; 
+            cursor: pointer;
+        }
     }
 </style>
