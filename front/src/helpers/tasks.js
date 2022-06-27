@@ -37,3 +37,20 @@ export function isValidToken() {
 export function getToken() {
     return window.localStorage.token; 
 }
+
+/**
+ * Retorna uma string escapada 
+ * 
+ * @param String str 
+ * @returns String
+ */
+export function escape(str) {
+    return str.replace(/[\\]/g, '\\\\')
+                .replace(/[\"]/g, '\\\"')
+                .replace(/[\/]/g, '\\/')
+                .replace(/[\b]/g, '\\b')
+                .replace(/[\f]/g, '\\f')
+                .replace(/[\n]/g, '\\n')
+                .replace(/[\r]/g, '\\r')
+                .replace(/[\t]/g, '\\t');
+}
