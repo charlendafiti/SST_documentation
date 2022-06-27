@@ -74,6 +74,7 @@ function TaskController() {
             }
             database.deleteTask(id)
             .then( data => {
+                console.log( data );
                 res.send({success: true, erro: false, message: `Task ${id} deleted`})
             })
             .catch(error => {

@@ -131,10 +131,11 @@ class database {
                 if(error){
                     reject(error);
                 } else {
-                    stmt.run(id);    
+                    let result = stmt.run(id);    
+                    console.log(result);
                     stmt.finalize();
                     db.close();
-                    resolve({message: `Task ${id} updated`});
+                    resolve({message: `Task ${id} deleted`});
                 } 
             });
         });        

@@ -1,16 +1,5 @@
-<script>
-    import HambMenu from './HambMenu.vue';
-
-    export default {
-        components: {
-            HambMenu
-        }
-    }
-</script>
-
 <template>
     <header>
-    <HambMenu></HambMenu>
     <div class="logo">
         <img src="../assets/images/dafiti-logo.webp" alt="">
     </div>
