@@ -7,7 +7,6 @@ class database {
     
     constructor(){
         this.checkDataAndStructure();
-        this.getAllTasks();
     }
 
     getDatabase(){
@@ -143,8 +142,8 @@ class database {
 
     async getAllTasks(){
         const db = this.getDatabase();
-        return await new Promise((resolve, rejct) => {
-            db.all('select * from tasks order by jira_id asc', (err, data) => {
+        return await new Promise((resolve, reject) => {
+            db.all('select cast(substr(tasks.jira_id,5) as int) as id_jira, tasks.*  from tasks order by id_jira asc', (err, data) => {
                 if(!err){
                     resolve(data);
                 } else {
