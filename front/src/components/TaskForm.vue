@@ -23,7 +23,7 @@
                 class="description-text" 
                 type="text" 
                 maxlength="10" 
-                placeholder="SST-20" 
+                placeholder="Ex.: SST-20" 
                 v-model="task.jira_id"
             />
         </div>
@@ -34,7 +34,7 @@
             <input 
                 class="description-text" 
                 type="text"  
-                placeholder="[Dafiti] - Remoção de H1s extras" 
+                placeholder="Ex.: [Dafiti] - Remoção de H1s extras" 
                 v-model="task.title"
             />
         </div>
