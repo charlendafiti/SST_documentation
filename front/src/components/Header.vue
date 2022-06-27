@@ -10,12 +10,11 @@
 
 <template>
     <header>
-        <div>
-            <div class="logo">
-                <img src="../assets/images/dafiti-logo.webp" alt="">
-            </div>
-        </div>
-        <h1 class="main-title"> Tarefas de Q1 e Q3</h1>
+    <HambMenu></HambMenu>
+    <div class="logo">
+        <img src="../assets/images/dafiti-logo.webp" alt="">
+    </div>
+    <h1 class="main-title"> Tarefas de Q1 e Q3</h1>
     </header>
 </template>
 
@@ -36,6 +35,7 @@ header {
 
     .logo {
         display: inline-flex;
+        margin-left: 3rem;
     }
 }
 
@@ -51,6 +51,10 @@ header {
     header {
         display: flex;
         flex-direction: column;
+        .logo {
+            margin-left: 0;
+        }
     }
+
 }
 </style>

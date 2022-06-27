@@ -4,21 +4,22 @@ const fs = require('fs');
 
 
 class database {
-
-    constructor() {
+    
+    constructor(){
         this.checkDataAndStructure();
+        this.getAllTasks();
     }
 
-    getDatabase() {
+    getDatabase(){
         return new sqlite3.Database(path.resolve(__dirname, '../data/taskData.db'));
     }
 
-    async checkDataAndStructure() {
+    async checkDataAndStructure(){
         await this.generateStructure();
         this.importInicialDataIfNotExists();
     }
 
-    async generateStructure() {
+    async generateStructure(){
         const db = this.getDatabase();
 
         const result = await new Promise((resolve, reject) => {
@@ -41,23 +42,23 @@ class database {
         return result;
     }
 
-    async importInicialDataIfNotExists() {
+    async importInicialDataIfNotExists(){
 
 
         let hasTasks = await this.hasTasks();
 
         if (!hasTasks) {
             console.log('Has no tasks');
-            const fileData = fs.readFileSync(path.resolve(__dirname, '../tasks.json'), { encoding: 'utf8' });
+            const fileData = fs.readFileSync(path.resolve(__dirname, '../tasks.json'),{encoding: 'utf8'});
             const tasks = JSON.parse(fileData);
             const db = this.getDatabase();
 
             const stmt = db.prepare(`
                 insert into tasks(jira_id, title, description, dev_journey, SEO_principles, best_practices) values(?, ?, ?, ?, ?, ?);
             `);
-
-
-            tasks.forEach(task => {
+            
+            
+            tasks.forEach( task => {
                 stmt.run(task.id, task.title, task.description, task.dev_journey, task.SEO_principles, task.best_practices);
             });
 
@@ -69,20 +70,20 @@ class database {
     async hasTasks() {
         const db = this.getDatabase();
 
-        return await new Promise((resolve, reject) => {
-            db.all('select * from tasks', (err, data) => {
-                let result = !!data ? data.length > 0 : false;
+        return await new Promise( (resolve, reject) => {
+            db.all('select * from tasks', (err, data) => { 
+                let result = !!data ? data.length > 0 :  false;
                 resolve(result)
             }).close();
         });
     }
 
-    async udpateTask(dataToUpdate) {
+    async udpateTask(dataToUpdate){
         const db = this.getDatabase();
         let id, field, value;
 
-        Object.keys(dataToUpdate).forEach(currentField => {
-            if (currentField == 'id') {
+        Object.keys(dataToUpdate).forEach( currentField => {
+            if(currentField == 'id'){
                 id = dataToUpdate[currentField];
             } else {
                 field = currentField;
@@ -90,21 +91,60 @@ class database {
             }
         });
 
-        const stmt = db.prepare(`update tasks set ${field} = ? where id = ${id}`);
-
-        stmt.run(value);
-
-        stmt.finalize();
-
-        db.close();
-
+        return new Promise( (resolve, reject) => {
+            const stmt = db.prepare(`update tasks set ${field} = ? where id = ${id}`, error => {
+                if(error){
+                    reject(error);
+                } else {
+                    stmt.run(value);   
+                    stmt.finalize();
+                    db.close();
+                    resolve({message: `Task ${id} updated`});
+                } 
+            });
+        });
+        
     }
 
-    async getAllTasks() {
+    async insertTask(jira_id, title){
         const db = this.getDatabase();
-        return await new Promise((resolve, reject) => {
+
+        return new Promise( (resolve, reject) => {
+            const stmt = db.prepare(`insert into tasks(jira_id, title) values(?, ?)`, error => {
+                if(error){
+                    reject(error);
+                } else {
+                    stmt.run(jira_id, title);    
+                    stmt.finalize();
+                    db.close();
+                    resolve({message: `Task ${jira_id} inserted`});
+                } 
+            });
+        });        
+    }
+
+    async deleteTask(id){
+        const db = this.getDatabase();
+
+        return new Promise( (resolve, reject) => {
+            const stmt = db.prepare(`delete from task where id = ?`, error => {
+                if(error){
+                    reject(error);
+                } else {
+                    stmt.run(id);    
+                    stmt.finalize();
+                    db.close();
+                    resolve({message: `Task ${id} updated`});
+                } 
+            });
+        });        
+    }
+
+    async getAllTasks(){
+        const db = this.getDatabase();
+        return await new Promise((resolve, rejct) => {
             db.all('select * from tasks', (err, data) => {
-                if (!err) {
+                if(!err){
                     resolve(data);
                 } else {
                     reject(err);

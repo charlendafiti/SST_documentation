@@ -129,19 +129,19 @@ export default {
                     let result = true; 
 
                     if(this.filters.no_description && result) {
-                        result = !(!!task.description.trim() && result);
+                        result = !((!!task.description && !!task.description.trim()) && result);
                     }
 
                     if(this.filters.no_dev_journey && result) {
-                        result = !(!!task.dev_journey.trim() && result);
+                        result = !((!!task.dev_journey && !!task.dev_journey.trim()) && result);
                     }
 
                     if(this.filters.no_seo_principles && result) {
-                        result = !(!!task.SEO_principles.trim() && result);
+                        result = !((!!task.SEO_principles && !!task.SEO_principles.trim()) && result);
                     }
 
                     if(this.filters.no_best_practices && result) {
-                        result = !(!!task.best_practices.trim() && result);
+                        result = !((!!task.best_practices && !!task.best_practices.trim()) && result);
                     }
 
                     return result; 

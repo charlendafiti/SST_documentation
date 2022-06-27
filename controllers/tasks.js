@@ -9,13 +9,73 @@ function TaskController() {
     }    
 
     this.updateTask = async function(req, res){
-        let currentTaskIdx;
 
-        let dataToUpdate = req.body.payload;
+        try {
+            let currentTaskIdx;    
+            let dataToUpdate = req.body.payload;
 
-        database.udpateTask(dataToUpdate);
+            if(!dataToUpdate.id){
+                throw {message: "No ID informed"};
+            }
 
-        res.send('ok');
+            if(Object.keys(dataToUpdate).length < 2){
+                throw {message: 'Insuficient params'};
+            }
+            
+                database.udpateTask(dataToUpdate)
+                .then( data => {
+                    res.send('ok');            
+                })
+                .catch( error => {
+                    res.status(406).send({errorMessage: error.message, params: req.body.payload})
+                });
+    
+        } catch (error) {
+            res.status(403).send({errorMessage: error.message, params: req.body.payload})
+        }
+    }
+
+    this.insertTask = async function(req, res){
+
+        try {
+            let taskToInsert = req.body.payload;
+
+            if(!taskToInsert.jira_id){
+                throw {message: "No jira_id informed"};
+            }
+
+            if(!taskToInsert.title){
+                throw {message: "No tittle informed"};
+            }
+
+            if(Object.keys(taskToInsert).length < 2){
+                throw {message: 'Insuficient params'};
+            }
+            
+            database.insertTask(taskToInsert.jira_id, taskToInsert.title)
+            .then( data => {
+                res.send('ok');            
+            })
+            .catch( error => {
+                res.status(406).send({errorMessage: error.message, params: req.body.payload})
+            });
+    
+        } catch (error) {
+            res.status(406).send({errorMessage: error.message, params: req.body.payload})
+        }
+    }
+
+    this.deleteTask = async function(req, res){
+        let {id} = req.body.paylod;
+
+        try {
+            if(!id){
+                throw {message: "No id infomed"}
+            }
+            database.deleteTask(id);
+        } catch (error) {
+            res.status(406).send({errorMessage: error.message, params: req.body.payload})
+        }
     }
 
     return this;

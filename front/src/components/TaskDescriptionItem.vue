@@ -69,7 +69,7 @@
                 
 
                 fetch((config.host || '') + '/tasks', {
-                    method: 'POST', 
+                    method: 'PUT', 
                     body: body,
                     headers: {
                         "Content-type": "application/json;charset=UTF-8",

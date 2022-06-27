@@ -8,6 +8,8 @@ const router = express.Router();
 router.use(checkToken);
 
 router.get('/', TaskController.getTasks);
-router.post('/', TaskController.updateTask);
+router.put('/', TaskController.updateTask);
+router.post('/', TaskController.insertTask);
+router.delete('/', TaskController.deleteTask);
 
 module.exports = router;
