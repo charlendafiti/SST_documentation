@@ -99,7 +99,7 @@
         font-size: .875rem;
         color: var(--color-600);
         white-space: pre-line;
-        
+        word-break: break-word;
     }
 
     textarea.description-text {
