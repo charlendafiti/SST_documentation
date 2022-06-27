@@ -162,5 +162,6 @@ textarea {
     border-radius:  0 0 5px 5px;
     padding: .8rem 1rem; 
     word-break: break-all;
+    text-align: justify;
 }
 </style>
