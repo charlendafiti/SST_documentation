@@ -71,7 +71,7 @@ class database {
         const db = this.getDatabase();
 
         return await new Promise( (resolve, reject) => {
-            db.all('select * from tasks', (err, data) => { 
+            db.all('select * from tasks order by jira_id asc', (err, data) => { 
                 let result = !!data ? data.length > 0 :  false;
                 resolve(result)
             }).close();
