@@ -66,13 +66,19 @@ function TaskController() {
     }
 
     this.deleteTask = async function(req, res){
-        let {id} = req.body.paylod;
-
+        
         try {
+            let {id} = req.body.payload;
             if(!id){
                 throw {message: "No id infomed"}
             }
-            database.deleteTask(id);
+            database.deleteTask(id)
+            .then( data => {
+                res.send({success: true, erro: false, message: `Task ${id} deleted`})
+            })
+            .catch(error => {
+
+            });
         } catch (error) {
             res.status(406).send({errorMessage: error.message, params: req.body.payload})
         }
