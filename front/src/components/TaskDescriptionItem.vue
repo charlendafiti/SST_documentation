@@ -111,7 +111,8 @@
         padding: 1rem;
         color: var(--color-800);
         content: attr(data-replicated-value) " ";
-
+        border: 1px solid var(--color-100);
+        
         &:focus {
             outline-color: #666;
         }
