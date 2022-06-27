@@ -1,5 +1,5 @@
 <template>
-    <header-component />
+    <header-component :showNewButton="false" />
     <div class="main">
         <task-form />
     </div>

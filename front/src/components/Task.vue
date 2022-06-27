@@ -6,13 +6,7 @@
   <div class="task" v-if="task.id">
     <div class="task-header">
 
-    
-    <button
-      @click="redirectToRoot" 
-      v-if="showBackButton" 
-      class="back-button"
-    > Voltar </button>
-    
+      <back-button :showBackButton="showBackButton"/>
       
       <router-link :to="{path: `/task/${task.id}`}">
         <span class="task-jira-id">{{task.jira_id}}</span>
@@ -64,6 +58,7 @@
 
 <script>
 import TaskDescriptionItem from '../components/TaskDescriptionItem.vue';
+import BackButton from '../components/BackButton.vue';
 import GeneralConfig from "../config/generalConfig";
 import { getTasks } from '../helpers/tasks'; 
 
@@ -89,14 +84,8 @@ export default {
   },
 
   components: {
-    TaskDescriptionItem
-  },
-
-  methods: {
-    redirectToRoot() {
-       
-      this.$router.push('/')
-    }
+    TaskDescriptionItem,
+    BackButton
   },
 
   computed: {
@@ -159,24 +148,6 @@ textarea {
   border: none;
   font-weight: 600;
   margin-left: 8px;
-}
-
-.back-button {
-    display: block;
-    background-color: var(--color-600);
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-weight: 500;
-    font-size: .875rem;
-    float: right;
-}
-
-.back-button:hover {
-    transition: background-color .2s linear;
-    cursor: pointer;
-    background-color: #212121;
 }
 
 .task-header .task-title {

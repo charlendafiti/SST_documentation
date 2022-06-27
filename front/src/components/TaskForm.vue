@@ -1,7 +1,9 @@
 <template>  
-    <div class="row">
-
-        <p v-if="errors.length" class="errors">
+    <div class="row"> 
+        <back-button :showBackButton="true" />
+    </div>
+    <div v-if="errors.length" class="row">
+        <p class="errors">
             <b>Corrija o(s) seguinte(s) erro(s): </b>
             <ul>
                 <li v-for="error in errors">{{error}}</li>
@@ -38,9 +40,16 @@
 </template>
 
 <script>
+    import BackButton from '../components/BackButton.vue';
     import { getToken, escape } from '../helpers/tasks';
     import config from '../config/generalConfig.js';
+
     export default {
+
+        components: {
+            BackButton
+        },
+
         data: _ => ({
             isProcessing: false,
             errors: [],
