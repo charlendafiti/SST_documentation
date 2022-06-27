@@ -12,6 +12,7 @@
                 cols="30" 
                 rows="10"
                 @change="updateItemDescription"
+                @input="adjustTextareaHeight"
             >{{text}}</textarea>
         </div>
         
@@ -78,6 +79,11 @@
                 }).then( res => {
                     console.log(res.body.json);
                 });
+            },
+
+            adjustTextareaHeight(e) {
+                e.target.style.height = "auto";
+                e.target.style.height = `${e.target.scrollHeight}px`;
             }
         },
     }
