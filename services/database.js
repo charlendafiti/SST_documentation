@@ -127,14 +127,15 @@ class database {
         const db = this.getDatabase();
 
         return new Promise( (resolve, reject) => {
-            const stmt = db.prepare(`delete from task where id = ?`, error => {
+            const stmt = db.prepare(`delete from tasks where id = ?`, error => {
                 if(error){
                     reject(error);
                 } else {
-                    stmt.run(id);    
+                    let result = stmt.run(id);    
+                    console.log(result);
                     stmt.finalize();
                     db.close();
-                    resolve({message: `Task ${id} updated`});
+                    resolve({message: `Task ${id} deleted`});
                 } 
             });
         });        
