@@ -100,6 +100,7 @@
         color: var(--color-600);
         white-space: pre-line;
         word-break: break-word;
+        text-align: justify;
     }
 
     textarea.description-text {
