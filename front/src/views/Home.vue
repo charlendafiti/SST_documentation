@@ -6,7 +6,7 @@
             <input 
                 type="text" 
                 maxlength="20" 
-                placeholder="ID do banco ou do Jira" 
+                placeholder="ID do Jira. Ex.: SST-20" 
                 @input="onTyping"
                 v-on:keyup.enter="search" 
                 v-model="query"
@@ -103,9 +103,7 @@ export default {
 
                 this.fetchJson().then(tasks => {
                     this.tasks = tasks.filter(task => {
-                        return (
-                            (task.id == this.query) || (task.jira_id.includes(this.query.toUpperCase()) ) 
-                        ); 
+                        return task.jira_id.includes(this.query.toUpperCase());
                     });
                     this.isLoading = false; 
                 });
