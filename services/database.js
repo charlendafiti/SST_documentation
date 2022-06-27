@@ -144,7 +144,7 @@ class database {
     async getAllTasks(){
         const db = this.getDatabase();
         return await new Promise((resolve, rejct) => {
-            db.all('select * from tasks', (err, data) => {
+            db.all('select * from tasks order by jira_id asc', (err, data) => {
                 if(!err){
                     resolve(data);
                 } else {
