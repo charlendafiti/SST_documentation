@@ -35,7 +35,8 @@ export default {
         },
 
         redirect(url) {
-            this.$router.push(url)
+            let route = this.$router.resolve({ path: url });
+            window.open(route.href)
         }
     },
     props: {
