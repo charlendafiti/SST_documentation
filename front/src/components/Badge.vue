@@ -1,5 +1,11 @@
 <template>
-    <div class="badge badge-sm" :class="`badge--${type.toLowerCase()}`">{{description}}</div>
+    <div
+        v-if="visible" 
+        class="badge badge-sm" 
+        :class="`badge--${type.toLowerCase()}`"
+        >
+        {{description}}
+        </div>
 </template>
 
 <script>
@@ -15,6 +21,12 @@ export default {
             required: false,
             type: String,
             default: 'draft'
+        },
+
+        visible: {
+            required: false,
+            type: Boolean,
+            default: true
         }
     }
 }
