@@ -15,6 +15,8 @@
       <a class="jira-button" :href="`${jiraURL}/${task.jira_id}`" target="_blank">
         Link do Jira
       </a>
+
+      <badge :description="badgeDescription" :type="badgeStatus"/>
       
        <router-link :to="{path: `/task/${task.id}`}">
         <h2 class="task-title">{{task.title}}</h2>
@@ -59,6 +61,7 @@
 <script>
 import TaskDescriptionItem from '../components/TaskDescriptionItem.vue';
 import BackButton from '../components/BackButton.vue';
+import Badge from '../components/Badge.vue';
 import GeneralConfig from "../config/generalConfig";
 import { getTasks } from '../helpers/tasks'; 
 
@@ -85,12 +88,35 @@ export default {
 
   components: {
     TaskDescriptionItem,
-    BackButton
+    BackButton,
+    Badge
   },
 
   computed: {
     jiraURL() {
       return GeneralConfig.jira_url; 
+    },
+
+    badgeStatus() {
+      switch(this.task.status) {
+        case 0:
+          return 'done';
+        case 1: 
+          return 'canceled';
+        default: 
+          return 'draft';  
+      }
+    },
+
+    badgeDescription() {
+      switch(this.task.status) {
+        case 0:
+          return 'Concluída';
+        case 1: 
+          return 'Cancelada';
+        default: 
+          return 'Rascunho';  
+      }
     }
   }
 }
