@@ -188,10 +188,6 @@ textarea {
     width: 100%;
     height: 35px;
     padding: .1rem .5rem;
-<<<<<<< HEAD
-    border: 1px solid var(--color-200);
-=======
->>>>>>> 4b346bdf8cb453fdd5644141ff9b332bb85c1692
     border-radius: 3px;
     font-size: .9rem;
     border:none;
