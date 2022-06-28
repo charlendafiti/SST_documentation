@@ -183,7 +183,7 @@ class database {
                     reject(error);
                 } else {
                     let result = stmt.run(id);    
-                    console.log(result);
+
                     stmt.finalize();
                     db.close();
                     resolve({message: `Task ${id} deleted`});

@@ -33,7 +33,7 @@ function onFieldChange(changed){
             body: body,
             headers: {"Content-type": "application/json;charset=UTF-8"}
         }).then( res => {
-        console.log(res.body.json);
+
     });
 }
 

@@ -77,7 +77,7 @@
                         token: getToken(),
                     }
                 }).then( res => {
-                    console.log(res.body.json);
+
                 });
             },
 
