@@ -1,14 +1,15 @@
 <script>
 import Sidebar from './Sidebar.vue';
 export default {
-    data() {
-        return {
-            viewSidebar: false
-        }
-    },
+    
     components: {
         Sidebar
     },
+
+    data: _ => ({
+        viewSidebar: false,
+    }),
+    
     methods: {
         toggleSidebar() {
             this.viewSidebar = !this.viewSidebar;
@@ -20,42 +21,50 @@ export default {
 }
 </script>
 <template>
-    <div class="hamb-menu-container">
-        <div class="hamb-menu" @click="toggleSidebar">
-            <div class="hamb-menu-line"></div>
-            <div class="hamb-menu-line"></div>
-            <div class="hamb-menu-line"></div>
-        </div>
     
+    <div class="hamb-menu-container" @click="toggleSidebar">
+        <div class="hamb-menu">
+        </div>
     </div>
     <Sidebar v-if="this.viewSidebar" @toggleSidebar="toggleSidebar"></Sidebar>
 
 </template>
 <style scoped lang="scss">
-    .hamb-menu-container {
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        display: inline-block;
-        width: 4vh;
-        max-width: 30px;
-        height: 3vh;
-        margin: 1.5rem 1rem;
-
-        .hamb-menu {
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-
-        .hamb-menu-line {
-            display: flex;
-            flex: 1;
-            background-color: black;
-            width: 100%;
-            height: 17%;
-            margin: 16% 0;
-        }
     
+    .hamb-menu-container {
+        cursor: pointer;
+        padding: .5rem 0;
+    }
+
+    .line {
+        width: 100%;
+        height: 2.5px;
+        border-radius: 5px;
+        background-color: var(--color-800); 
+    }
+
+    .hamb-menu {
+       @extend .line; 
+       width: 23px;
+       display: block;
+       position: relative; 
+       cursor: pointer;
+
+
+       &::before, 
+       &::after {
+        content: '';
+        @extend .line;
+        position: absolute;
+       }
+
+       &::before {
+        top: -6px; 
+       }
+
+       &::after {
+        top: 6px; 
+       }
+
     }
 </style>

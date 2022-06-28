@@ -1,5 +1,7 @@
 <template>
     <header>
+        <hamb-menu />
+
         <div class="logo">
             <img src="../assets/images/dafiti-logo.webp" alt="">
         </div>
@@ -14,7 +16,13 @@
 </template>
 
 <script> 
+import HambMenu from './HambMenu.vue';
+
 export default {
+    components: {
+        HambMenu
+    },
+
     props: {
         showNewButton: {
             required: false,

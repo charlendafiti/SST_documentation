@@ -15,12 +15,26 @@
       <a class="jira-button" :href="`${jiraURL}/${task.jira_id}`" target="_blank">
         Link do Jira
       </a>
+
+      <badge 
+        :description="badgeDescription" 
+        :type="badgeStatus" 
+        :visible="!showBackButton"
+      />
       
        <router-link :to="{path: `/task/${task.id}`}">
         <h2 class="task-title">{{task.title}}</h2>
        </router-link>
     </div>
     <div class="task-body">
+
+        <div class="form-group" v-if="showBackButton">
+          <label for="status">Situação</label>
+          <select id="status" v-model="task.status" @change="updateTaskStatus">
+            <option v-for="option in statusOptions" :value="option.code">{{option.text}}</option>
+          </select>
+        </div>
+
         <task-description-item 
           title="Description" 
           field_id="description"
@@ -59,8 +73,9 @@
 <script>
 import TaskDescriptionItem from '../components/TaskDescriptionItem.vue';
 import BackButton from '../components/BackButton.vue';
+import Badge from '../components/Badge.vue';
 import GeneralConfig from "../config/generalConfig";
-import { getTasks } from '../helpers/tasks'; 
+import { getToken } from '../helpers/tasks'; 
 
 export default {
   
@@ -85,12 +100,62 @@ export default {
 
   components: {
     TaskDescriptionItem,
-    BackButton
+    BackButton,
+    Badge
+  },
+
+  methods: {
+    updateTaskStatus(e) {
+      
+      let body = `{"payload": {"id": ${this.task.id}, "status": ${this.task.status}}}`;
+      
+
+      fetch((GeneralConfig.host || '') + '/tasks', {
+          method: 'PUT', 
+          body: body,
+          headers: {
+              "Content-type": "application/json;charset=UTF-8",
+              token: getToken(),
+          }
+      }).then( res => {
+          console.log(res.body.json);
+      });
+  },
   },
 
   computed: {
     jiraURL() {
       return GeneralConfig.jira_url; 
+    },
+
+    badgeStatus() {
+      switch(this.task.status) {
+        case 0:
+          return 'done';
+        case 1: 
+          return 'canceled';
+        default: 
+          return 'draft';  
+      }
+    },
+
+    badgeDescription() {
+      switch(this.task.status) {
+        case 0:
+          return 'Concluída';
+        case 1: 
+          return 'Cancelada';
+        default: 
+          return 'Rascunho';  
+      }
+    },
+
+    statusOptions() {
+      return [
+        {code: 0, text: 'Concluída'},
+        {code: 1, text: 'Cancelada'},
+        {code: 2, text: 'Rascunho'},
+      ]
     }
   }
 }
@@ -106,6 +171,27 @@ textarea {
     border:none;
     outline: none;
     background: none;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+
+  label {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--color-800);
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+
+  select {
+    width: 100%;
+    height: 35px;
+    padding: .1rem .5rem;
+    border-color: var(--color-200);
+    border-radius: 3px;
+    font-size: .9rem;
+  }
 }
 
 .task {

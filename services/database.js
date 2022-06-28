@@ -198,11 +198,9 @@ class database {
             db.all(`
                     select 
                         cast(substr(tasks.jira_id,5) as int) as id_jira, 
-                        tasks.*,
-                        status.description as status_description
+                        tasks.*
                     from tasks 
-                    join status 
-                      on (tasks.status = status.id) order by id_jira asc
+                    order by id_jira asc
                     `, (err, data) => {
                 if(!err){
                     resolve(data);
