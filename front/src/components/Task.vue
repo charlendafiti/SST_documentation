@@ -188,9 +188,9 @@ textarea {
     width: 100%;
     height: 35px;
     padding: .1rem .5rem;
-    border-color: var(--color-200);
     border-radius: 3px;
     font-size: .9rem;
+    border:none;
   }
 }
 
