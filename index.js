@@ -30,6 +30,9 @@ app.use('/tasks', taskRoutes);
 
 app.use('/backup', express.static('./data/'));
 
+app.use('/report/1', express.static('./reports/r1/'));
+app.use('/report/2', express.static('./reports/r2/'));
+
 
 app.get('/getTasks1/', (req, res) => {
     let mockTask = fs.readFileSync('./tasks.json', {encoding: 'utf-8'});
@@ -39,6 +42,6 @@ app.get('/getTasks1/', (req, res) => {
 
 
 app.listen(port, _ => {
-    console.log(`Listening on ${port} port`);
-    console.log('Static folder: ', staticFolder);
+
+
 });

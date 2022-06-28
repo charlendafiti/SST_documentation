@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+:root {
+    font-family: 'Open Sans', sans-serif;
+    border: none !important;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    border: none !important;
+}
+
+body {
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    padding: 1rem;
+}
+
+p {
+    margin: 1rem;
+}
+
+textarea {
+    width: 100%;
+    height: fit-content;
+    overflow: auto;
+    min-height: 100px;
+    outline: none;
+    background: none;
+}
+
+.main-title {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    margin-left: 1rem;
+}
+
+.task {
+    margin-bottom: 1.5rem;
+}
+
+.task-header {
+    padding: .8rem 1rem; 
+    background: white; 
+}
+
+.task-id {
+    font-size: .8rem;
+    font-weight: 300;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+.back-button {
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    font-weight: 500;
+    font-size: .875rem;
+    float: right;
+}
+
+.back-button:hover {
+    cursor: pointer;
+}
+
+.task-header .task-title {
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.task-body {
+    padding: .8rem 1rem; 
+}
+
+.task-body h3 {
+    font-size: 1rem; 
+    margin-bottom: 5px;
+}
+
+.task-body h3:not(:first-child) {
+    margin-top: 1.1rem;
+}
+
+.task-description {
+    font-size: .875rem;
+    text-align: justify;
+    white-space: pre-line;
+}
+
+
+.report-link {
+    display:block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    margin: 1rem 0;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+}
+
+.report-link:hover {
+    text-decoration: none;
+}
+
+.report-link:active {
+    text-decoration: none;
+}
+
+.report-link:visited {
+    text-decoration: none;
+}
+
+@media print {
+    /* .task { page-break-after: always; } page-break-after works, as well */
+    .report-link { 
+        color: blue;
+        background: none;
+    }
+}

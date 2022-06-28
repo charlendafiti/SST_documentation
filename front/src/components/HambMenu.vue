@@ -16,7 +16,7 @@ export default {
         }
     },
     mounted() {
-        console.log(`Initial value of viewSidebar is ${this.viewSidebar}`)
+
     }
 }
 </script>

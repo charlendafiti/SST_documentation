@@ -94,7 +94,7 @@
                         this.task.title = '';
                         this.success = true;
                     })
-                    .catch(err => console.log(err));
+
                 }
 
                 this.isProcessing = false;
