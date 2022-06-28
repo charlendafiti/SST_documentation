@@ -28,6 +28,8 @@ app.use(/\/task\/.*/, express.static(staticFolder));
 
 app.use('/tasks', taskRoutes);
 
+app.use('/backup', express.static('./data/'));
+
 
 app.get('/getTasks1/', (req, res) => {
     let mockTask = fs.readFileSync('./tasks.json', {encoding: 'utf-8'});
