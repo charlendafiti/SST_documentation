@@ -150,7 +150,7 @@
     }
 
     .btn-submit {
-        background: #0052cc;
+        background: var(--primary);
         color: white;
         border: none;
         padding: 10px 24px;
@@ -158,7 +158,7 @@
         cursor: pointer; 
 
         &.processing {
-            background-color: lighten(#0052cc, 30);
+            background-color: var(--primary); 
         }
     }
 

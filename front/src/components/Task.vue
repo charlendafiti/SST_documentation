@@ -229,7 +229,7 @@ textarea {
 
 .jira-button {
   @extend .task-id; 
-  background: #0052cc; 
+  background: var(--primary); 
   color: white;
   border: none;
   font-weight: 600;

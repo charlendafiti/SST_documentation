@@ -52,17 +52,17 @@ export default {
 
     &--done {
         color: #fff;
-        background-color: #28a745;
+        background-color: var(--success);
     }
     
     &--canceled {
         color: #fff;
-        background-color: #dc3545;
+        background-color: var(--danger);
     }    
 
     &--draft {
         color: #fff;
-        background-color: #6c757d;
+        background-color: var(--color-400);
     }
 }
 </style>

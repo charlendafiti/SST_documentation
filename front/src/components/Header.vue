@@ -65,7 +65,7 @@ header {
 
     .new-button {
         border: none;
-        background: #0052cc;
+        background: var(--primary);
         color: white;
         font-weight: 500;
         padding: 8px 16px;
