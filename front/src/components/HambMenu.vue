@@ -31,6 +31,22 @@ export default {
 </template>
 <style scoped lang="scss">
     
+     @media screen and (max-width: 300px) {
+        .hamb-menu-container {
+            position: absolute;
+            top: 50%;
+            left: 1rem;
+        }
+    }
+
+   @media screen and (min-width: 301px) and (max-width: 500px) {
+        .hamb-menu-container {
+            position: absolute;
+            top: 50%;
+            left: 2rem;
+        }
+    }
+
     .hamb-menu-container {
         cursor: pointer;
         padding: .5rem 0;
