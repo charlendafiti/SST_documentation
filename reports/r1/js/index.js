@@ -94,10 +94,10 @@ fetch('/tasks',{
                         <h2 class="task-title">${jira_id} - ${title} (${statusTranslate(status)})</h2>
                     </div>
                     <div class="task-body">
-                        <h3>Descrição</h3><div class="task-description">${description||""}</div>
-                        <h3>Jornada de Desenvolvimento</h3><div class="task-description">${dev_journey||""}</div>
+                        <h3>Descrição</h3><div class="task-description img-fluid">${description||""}</div>
+                        <h3>Jornada de Desenvolvimento</h3><div class="task-description img-fluid">${dev_journey||""}</div>
                         <h3>Principios de SEO</h3><div class="task-description">${SEO_principles||""}</div>
-                        <h3>Boas práticas</h3><div class="task-description">${best_practices||""}</div>
+                        <h3>Boas práticas</h3><div class="task-description img-fluid">${best_practices||""}</div>
                     </div>
                 `
                 
