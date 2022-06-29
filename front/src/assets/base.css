@@ -79,7 +79,7 @@ input[type="text"]:focus {
     border-color: var(--color-500);
 }
 
-.description-editable img {
+.img-fluid img {
   display: block; 
   width: auto;  
   max-width: 100%;  

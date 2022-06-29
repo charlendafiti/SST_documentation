@@ -3,12 +3,12 @@
         <h3 class="description-title">
             {{title}}
         </h3>
-        <p v-if="!editable" class="description-text" v-html="text">
+        <p v-if="!editable" class="description-text img-fluid" v-html="text">
         </p>
         <div v-else 
             :contentEditable="true"
             v-html="text"
-            class="description-text description-editable"  
+            class="description-text description-editable img-fluid"  
             :id="field_id"
             @input="onTyping"
         ></div>
