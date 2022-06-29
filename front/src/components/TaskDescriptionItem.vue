@@ -6,14 +6,15 @@
         <p v-if="!editable" class="description-text" v-html="text">
         </p>
         <div v-else class="grow-wrap">
-            <textarea 
-                class="description-text"  
+            <div 
+                :contentEditable="true"
+                class="description-text description-editable"  
                 :id="field_id"
                 cols="30" 
                 rows="10"
-                @change="updateItemDescription"
-                @input="adjustTextareaHeight"
-            >{{text}}</textarea>
+                @input="updateItemDescription"
+                v-html="text"
+            ></div>
         </div>
         
     </div>
@@ -55,8 +56,14 @@
 
         methods: {
             updateItemDescription(e) {
+
+                let element = e || event;
+
+                console.log(element);
+
+                let elementValue = element.target.value || element.target.innerHTML;
                 
-                let content = e.target.value.replace(/[\\]/g, '\\\\')
+                let content = elementValue.replace(/[\\]/g, '\\\\')
                 .replace(/[\"]/g, '\\\"')
                 .replace(/[\/]/g, '\\/')
                 .replace(/[\b]/g, '\\b')
@@ -77,13 +84,13 @@
                         token: getToken(),
                     }
                 }).then( res => {
-
+                    this.adjustTextareaHeight();
                 });
             },
 
             adjustTextareaHeight(e) {
-                e.target.style.height = "auto";
-                e.target.style.height = `${e.target.scrollHeight}px`;
+                element.style.height = "auto";
+                element.style.height = `${element.scrollHeight}px`;
             }
         },
     }

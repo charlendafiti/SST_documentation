@@ -163,7 +163,7 @@ export default {
 
 <style scoped lang="scss">
 
-textarea {
+.description-editable {
     width: 100%;
     height: fit-content;
     overflow: auto;
