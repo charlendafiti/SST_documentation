@@ -5,18 +5,13 @@
         </h3>
         <p v-if="!editable" class="description-text" v-html="text">
         </p>
-        <div v-else class="grow-wrap">
-            <div 
-                :contentEditable="true"
-                class="description-text description-editable"  
-                :id="field_id"
-                cols="30" 
-                rows="10"
-                @input="updateItemDescription"
-                v-html="text"
-            ></div>
-        </div>
-        
+        <div v-else 
+            :contentEditable="true"
+            v-html="text"
+            class="description-text description-editable"  
+            :id="field_id"
+            @input="updateItemDescription"
+        ></div>
     </div>
 </template>
 
@@ -97,6 +92,7 @@
 </script>
 
 <style scoped lang="scss">
+
     .task-description-item {
         margin-bottom: 1rem; 
     }
@@ -109,11 +105,18 @@
     }
 
     .description-text {
-        font-size: .875rem;
-        color: var(--color-600);
-        white-space: pre-line;
-        word-break: break-word;
-        text-align: justify;
+        outline: none;
+
+        &.description-editable {
+            font-size: .875rem;
+            color: var(--color-800);
+            word-break: break-word;
+            text-align: justify;
+            padding: .8rem;
+            border: 1px solid var(--color-100);
+            border-radius: 3px;
+            background-color: var(--color-50);
+        }
     }
 
     textarea.description-text {
@@ -130,25 +133,5 @@
         &:focus {
             outline-color: #666;
         }
-    }
-
-    .grow-wrap {
-        display: grid;
-    }
-    .grow-wrap::after {
-        content: attr(data-replicated-value) " ";
-        visibility: hidden;
-    }
-
-    .grow-wrap > textarea {
-        resize: none;
-        overflow: hidden;
-    }
-    .grow-wrap > textarea,
-    .grow-wrap::after {
-    
-    padding: 0.5rem;
-    font: inherit;
-    grid-area: 1 / 1 / 2 / 2;
     }
 </style>
