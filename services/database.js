@@ -199,8 +199,7 @@ class database {
                     select 
                         cast(substr(tasks.jira_id,5) as int) as id_jira, 
                         tasks.*
-                    from tasks 
-                    where tasks.status <> 3
+                    from tasks
                     order by id_jira asc
                     `, (err, data) => {
                 if(!err){

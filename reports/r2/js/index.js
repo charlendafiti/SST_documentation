@@ -61,6 +61,9 @@ function updateAllLinks(){
     });
 }
 
+function isNoDraftTask(task){
+    return task.status != 2;
+}
 
 fetch('/tasks',{
     headers: {
@@ -71,7 +74,7 @@ fetch('/tasks',{
         data.json().then( res => {
             res
             .filter( task => {
-                return params.id ? task.id == params.id : true;
+                return (params.id ? task.id == params.id : true) && isNoDraftTask(task);
             })
             .forEach(task => {
                 let currentTask = document.createElement('div');

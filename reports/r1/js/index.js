@@ -47,15 +47,6 @@ function statusTranslate(status){
     return statusDictionary[status];
 }
 
-// function generateLink(content){
-//     let links = content.match(/http.*\:\/\/.*(\ ||\r)/ig);
-//     !!links && links.forEach( link => {
-//         let linkElement = `<a href='${link}' target='__blank'>${link}</a>`;
-//         content = content.replace(link, linkElement)
-//     })
-//     return content;
-// }
-
 function reduceLink(link){
     return link.substring(0,20) + '...';
 }
@@ -75,6 +66,10 @@ function updateAllLinks(){
     });
 }
 
+function isNoDraftTask(task){
+    return task.status != 2;
+}
+
 
 fetch('/tasks',{
     headers: {
@@ -85,7 +80,7 @@ fetch('/tasks',{
         data.json().then( res => {
             res
             .filter( task => {
-                return params.id ? task.id == params.id : true;
+                return (params.id ? task.id == params.id : true) && isNoDraftTask(task);
             })
             .forEach(task => {
                 let currentTask = document.createElement('div');
