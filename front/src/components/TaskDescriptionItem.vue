@@ -104,6 +104,11 @@
 
     .description-text {
         outline: none;
+        font-size: .875rem;
+        color: var(--color-600);
+        white-space: pre-line;
+        word-break: break-word;
+        text-align: justify;
 
         &.description-editable {
             font-size: .875rem;
