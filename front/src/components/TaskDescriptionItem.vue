@@ -10,7 +10,7 @@
             v-html="text"
             class="description-text description-editable"  
             :id="field_id"
-            @input="updateItemDescription"
+            @input="onTyping"
         ></div>
     </div>
 </template>
@@ -49,14 +49,17 @@
             }
         },
 
+        data: _ => ({
+            timeout: null, 
+        }),
+
         methods: {
+            onTyping(e) {
+                clearTimeout(this.timeout); 
+                this.timeout = setTimeout(() => this.updateItemDescription(e), 1000);
+            },
             updateItemDescription(e) {
-
-                let element = e || event;
-
-                console.log(element);
-
-                let elementValue = element.target.value || element.target.innerHTML;
+                let elementValue = e.target.innerHTML;
                 
                 let content = elementValue.replace(/[\\]/g, '\\\\')
                 .replace(/[\"]/g, '\\\"')
@@ -79,13 +82,8 @@
                         token: getToken(),
                     }
                 }).then( res => {
-                    this.adjustTextareaHeight();
+                    
                 });
-            },
-
-            adjustTextareaHeight(e) {
-                element.style.height = "auto";
-                element.style.height = `${element.scrollHeight}px`;
             }
         },
     }
