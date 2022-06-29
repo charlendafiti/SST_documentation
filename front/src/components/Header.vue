@@ -5,7 +5,7 @@
         <div class="logo">
             <img src="../assets/images/dafiti-logo.webp" alt="">
         </div>
-        <h1 class="main-title"> Tarefas de Q1 e Q3</h1>
+        <h1 class="main-title"> Tarefas de Q1 e Q2</h1>
     </header>
     <div class="main">
         <div class="row" v-show="showNewButton">
