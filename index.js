@@ -3,6 +3,8 @@ const fs = require('fs');
 const taskRoutes = require('./routes/tasks');
 const cors = require('cors');
 const path = require('path');
+const simpleMigration = require('./migration/simpleMigration');
+const migrations = require('./migration/migrations');
 
 const app = express();
 
@@ -14,6 +16,21 @@ app.use((req, res, next) => {
     app.use(cors());
     next();
 });
+
+async function runMigrations(){
+    await simpleMigration.runMigrations();
+}
+
+async function runServer(){
+    app.listen(port, _ => {
+        console.log( `Running on port ${port}`)
+    });
+}
+
+async function run(){
+    await runMigrations();
+    runServer();
+}
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
@@ -39,9 +56,5 @@ app.get('/getTasks1/', (req, res) => {
     res.send(mockTask);
 })
 
+run();
 
-
-app.listen(port, _ => {
-
-
-});
